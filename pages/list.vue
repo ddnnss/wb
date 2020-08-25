@@ -1,0 +1,227 @@
+<template>
+  <div>
+
+    <section>
+      <div class="container">
+        <el-card class="box-card mb25" shadow="never">
+          <div class=" b-flex a-bt">
+            <div class="">
+              <p class="fs-14 color-grey-card mb10">Фильтрация по типу</p>
+              <el-select v-model="value" placeholder="Выберите">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+
+
+            <div class="">
+              <p class="fs-14 color-grey-card mb10">Введите для поиска имя\телефон\сайт...</p>
+              <el-input placeholder="" v-model="input"></el-input>
+
+            </div>
+            <div class="">
+              <el-button type="info" icon="el-icon-search">Искать</el-button>
+            </div>
+          </div>
+
+        </el-card>
+
+
+       <el-table
+          :data="black_list"
+          style="width: 100%" class="mobile-hide">
+          <el-table-column
+            prop="id"
+            label="ID"
+            width="50">
+
+          </el-table-column>
+          <el-table-column
+            prop="image"
+            label="Фото"
+            width="100">
+            <template slot-scope="scope">
+              <img :src="scope.row.image" alt="">
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="type"
+            label="Тип"
+            width="150"
+          >
+          </el-table-column>
+          <el-table-column
+            prop="name"
+            label="Название"
+            width="150">
+          </el-table-column>
+          <el-table-column
+            prop="reason"
+            label="Причина добавления">
+          </el-table-column>
+          <el-table-column
+            prop="contact"
+            label="Контакты"
+            width="200">
+
+          </el-table-column>
+        </el-table>
+
+
+      </div>
+    </section>
+     <section>
+      <div class="container">
+
+        <div class="grid gridx2">
+          <div style="padding: 80px 50px" :style="{'background':item.bg }" v-for="item in top2_row" :key="item.title" class="grid-item">
+            <p class="text-bold color-dark fs-24 mb15">{{item.title}}</p>
+            <p class="fs-14 color-dark">{{item.text}}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+  </div>
+
+</template>
+<script>
+  export default {
+    async asyncData({$axios,params}){
+      try{
+        const  response_posts = await $axios.get(`/api/v1/posts_t/?tag=0`)
+        const  response_tags = await $axios.get(`/api/v1/tags/`)
+        const  response_bl = await $axios.get(`/api/v1/bl/`)
+
+        const posts = response_posts.data.results
+        const black_list = response_bl.data.results
+        const total_pages = response_posts.data.page_count - 1
+        const tags = response_tags.data.results
+        const url = response_posts.data.links.next
+
+        return {
+          posts,
+          tags,
+          black_list,
+          total_pages,
+          url
+        }
+      }catch (e) {
+        throw e
+      }
+
+    },
+    data() {
+      return {
+        options: [{
+          value: 'Option1',
+          label: 'Все типы'
+        }, {
+          value: 'Option2',
+          label: 'Тип1'
+        }, {
+          value: 'Option3',
+          label: 'Тип2'
+        }, {
+          value: 'Option4',
+          label: 'Тип3'
+        }, {
+          value: 'Option5',
+          label: 'Тип4'
+        }],
+        value: '',
+        value1: '',
+        input: '',
+
+        cur_tag:0,
+        top_row:[
+          {
+            image:'/t1.png',
+            title:'Кто мы?',
+            text:'Мы - команда Андрея Ковалева'
+          },
+          {
+            image:'/t2.png',
+            title:'Что делаем?',
+            text:'Разоблачаем инфоцыган и формируем специальный черный список'
+          },
+          {
+            image:'/t3.png',
+            title:'Зачем и почему?',
+            text:'Потому что хочется так'
+          },
+
+
+        ],
+        top1_row:[
+          {
+            bg:'#E2E6F4',
+            title:'Наша роль',
+            text:'Отбирать материал, формировать доказательную базу с информацией и вносить негативных персонажей (личностей или фирм) в наш черный список'
+          },
+          {
+            bg:'#BEDCF8',
+            title:'Ваша роль',
+            text:'Отправлять нам на почту материалы для расследований, писать свое мнение на форуме, делиться информацией с друзьями и близкими чтобы избежать мошенничества'
+          }
+
+
+
+        ],
+        top2_row:[
+          {
+            bg:'#ffffff',
+            title:'Оказались в списке случайно?',
+            text:'Добро пожаловать в арбитраж'
+          },
+          {
+            bg:'#ffffff',
+            title:'Вопросы по работе сайта?',
+            text:'Мы - команда энтузиастов, осуществляем и реализовываем проект известного многим людям бизнесмена и разоблачителя Андрея Ковалева'
+          }
+
+
+
+        ],
+
+
+      }
+    },
+    methods:{
+      pageChange(val){
+        this.getPosts(this.cur_tag,val)
+      },
+      async getPosts(tag_id,page){
+          await this.$axios.get(`/api/v1/posts_t/?tag=${tag_id}&page=${page}`)
+          .then((response) => {
+            console.log(response.data);
+            this.url = response.data.links.next
+            this.total_pages = response.data.page_count -1
+            this.posts = response.data.results
+            this.cur_tag = tag_id
+          })
+          .then(response => {
+            console.log('response1')
+            console.log(response)
+          })
+          .catch(error => {
+            console.log('response2')
+            console.log(error.response)
+            this.step1_btn_loading = false
+            this.login_error = true
+
+          });
+
+      }
+    }
+  }
+</script>
+
+

@@ -1,0 +1,177 @@
+$color-green: #03CB9C
+$color-h: #5B6274
+$color-text: #AEAEAE
+$color-body: #E5E5E5
+
+body
+
+
+  background: #f5f5f5
+  font-family: 'Montserrat',sans-serif
+  font-weight: 400
+  color: #000000
+
+a
+  color: inherit
+
+section
+  margin-bottom: 50px
+
+.header
+
+  margin-bottom: 50px
+
+.el-menu--horizontal>.el-menu-item.is-active
+  border-bottom: 2px solid #000000 !important
+
+.el-carousel__container
+  height: 550px !important
+.el-card
+  border-radius: 0 !important
+.text-up
+  text-transform: uppercase
+.el-button
+  border-radius: 0 !important
+.el-input__inner
+  border-radius: 0 !important
+  &:focus
+    border-color: #000 !important
+.b-flex
+  display: flex
+  align-items: center
+  justify-content: space-between
+  flex-wrap: wrap
+  &.a-bt
+    align-items: flex-end
+.menu-item
+  text-transform: uppercase
+  letter-spacing: 0.1em
+  font-size: 12px
+  font-weight: 700
+
+.container
+  max-width: 1140px
+  margin: 0 auto
+  padding: 0 10px
+  background: #F5F5F5
+.color-dark
+  color: #282828 !important
+
+.color-grey
+  color: #585858 !important
+.color-grey-card
+  color: #8E8E8E !important
+.text-bold
+  font-weight: 700 !important
+
+.textBold
+  font-weight: 700 !important
+.section-header
+  font-size: 32px
+  margin-bottom: 25px
+
+.bg-w
+  background: #ffffff
+.bg-l-blue
+  background: #E2E6F4
+.bg-d-blue
+  background: #BEDCF8
+
+.hover-eff
+  &:hover
+    cursor: pointer !important
+
+
+.fs-18
+  font-size: 18px !important
+.fs-24
+  font-size: 24px !important
+
+.fs-14
+  font-size: 14px !important
+.fs-16
+  font-size: 16px !important
+
+.fs-12
+  font-size: 12px !important
+
+.mb25
+  margin-bottom: 25px
+
+.mb15
+  margin-bottom: 15px
+
+.mb10
+  margin-bottom: 10px
+
+.card-inner
+  display: flex
+  align-items: center
+  flex-wrap: wrap
+  img
+    margin-right: 20px
+    width: 290px
+    height: 140px
+    object-fit: cover
+  &__div
+    flex-basis: 60%
+
+.grid
+  display: grid
+  grid-template-columns: repeat(auto-fill,minmax(350px,1fr))
+  grid-gap: 1px
+  &.gridx3
+    grid-template-columns: repeat(auto-fill,minmax(350px,1fr))
+  &.gridx2
+    grid-template-columns: repeat(auto-fill,minmax(500px,1fr))
+
+  &-item
+    padding: 40px 35px
+.tag-list
+  a
+    margin-right: 10px
+    &:last-child
+      margin-right: 0
+.header-top
+  padding-top: 30px
+  display: flex
+  align-items: center
+  justify-content: space-between
+  margin-bottom: 20px
+  &__logo
+    &-p1
+      font-size: 31px
+      font-weight: 700
+      line-height: 30px
+    &-p2
+      font-size: 12px
+
+.mobile-show
+  display: none !important
+
+@media (max-width: 1100px)
+  &.gridx3
+    grid-template-columns: repeat(auto-fill,minmax(260px,1fr)) !important
+  &.gridx2
+    grid-template-columns: repeat(auto-fill,minmax(400px,1fr)) !important
+
+@media (max-width: 768px)
+  .mobile-hide
+    display: none
+  .mobile-show
+    display: block !important
+  .text-bold
+    margin-bottom: 10px
+  &.gridx3
+    grid-template-columns: repeat(auto-fill,minmax(300px,1fr)) !important
+  &.gridx2
+    grid-template-columns: repeat(auto-fill,minmax(300px,1fr)) !important
+
+  .section-header
+    font-size: 24px
+    margin-bottom: 15px
+  .card-inner
+    img
+      margin-bottom: 20px
+    &__div
+      flex-basis: 100% !important
