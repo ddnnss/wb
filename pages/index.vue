@@ -2,7 +2,8 @@
   <div>
     <section>
       <div class="container">
-        <h3 class="section-header text-bold color-dark">О нашем сайте</h3>
+        <h1 class="h1 color-dark">Портал по борьбе с инфоцыганством</h1>
+        <h3 class="section-header  color-dark">О нашем сайте</h3>
 
         <div class="grid gridx3">
           <div v-for="item in top_row" :key="item.title" class="grid-item bg-w">
@@ -17,10 +18,10 @@
     </section>
     <section>
       <div class="container">
-        <h3 class="section-header text-bold color-dark">Как это работает?</h3>
+        <h3 class="section-header color-dark">Как это работает?</h3>
         <div class="grid gridx2">
           <div :style="{'background':item.bg }" v-for="item in top1_row" :key="item.title" class="grid-item">
-            <p class="text-bold color-grey fs-18 mb15">{{item.title}}</p>
+            <p class="color-grey fs-16 mb20">{{item.title}}</p>
             <p>{{item.text}}</p>
           </div>
         </div>
@@ -29,7 +30,7 @@
     <section>
       <div class="container">
         <div class="b-flex">
-          <h3 class="section-header text-bold color-dark">Черный список</h3>
+          <h3 class="section-header  color-dark">Черный список</h3>
           <el-link class="text-bold color-grey fs-14" href="list/">Смотреть весь список<i class="el-icon-arrow-right el-icon--right"></i> </el-link>
         </div>
 
@@ -52,7 +53,7 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="type"
+            prop="type.name"
             label="Тип"
             width="150"
           >
@@ -80,9 +81,9 @@
               <p class="fs-14 color-grey-card">ID</p>
               <p class="fs-16 mb15">{{item.id}}</p>
               <p class="fs-14 color-grey-card">Фото</p>
-              <img class="mb15" :src="item.image" alt="">
+              <img class="mb15 bl-image" :src="item.image" alt="">
               <p class="fs-14 color-grey-card ">Тип</p>
-              <p class="fs-16 mb15">{{item.type}}</p>
+              <p class="fs-16 mb15">{{item.type.name}}</p>
               <p class="fs-14 color-grey-card ">Название</p>
               <p class="fs-16 mb15">{{item.name}}</p>
               <p class="fs-14 color-grey-card ">Причина добавления</p>
@@ -98,18 +99,18 @@
     <section>
       <div class="container">
         <div class="b-flex">
-          <p class="section-header text-bold color-dark">Статьи и новости</p>
+          <p class="section-header  color-dark">Статьи и новости</p>
           <el-link class="text-bold color-grey fs-14" href="posts/">Смотреть все<i class="el-icon-arrow-right el-icon--right"></i> </el-link>
         </div>
         <el-row :gutter="15">
           <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6">
-            <el-card style="padding: 50px" class="box-card mb25" shadow="never">
+            <el-card style="padding: 50px 45px" class="box-card mb25 no-border" shadow="never" >
 
               <ul>
-                <li><el-link class="color-dark mb25" @click="getPosts(0,1)" :class="{textBold : cur_tag===0}">ВСЕ ПОДРЯД</el-link></li>
+                <li><el-link class="color-dark mb40" @click="getPosts(0,1)" :class="{textBold : cur_tag===0}">ВСЕ ПОДРЯД</el-link></li>
                 <li v-for="tag in tags" :key="tag.id"><el-link @click="getPosts(tag.id,1)"
                                                                :class="{textBold : cur_tag===tag.id}"
-                                                               class="text-up mb10">#{{tag.name}}</el-link></li>
+                                                               class="text-up  color-l-grey fs-14">#{{tag.name}}</el-link></li>
 
               </ul>
 
@@ -117,14 +118,15 @@
             </el-card>
           </el-col>
           <el-col :xs="24" :sm="12" :md="16" :lg="18" :xl="18">
-            <el-card style="padding: 0" class="mb15 hover-eff" shadow="never" v-for="post in posts" :key="post.id">
-              <nuxt-link :to="'/posts/'+post.name_slug">
+            <el-card style="padding: 0" class="mb15  no-padding" shadow="hover" v-for="post in posts" :key="post.id">
+
                  <div class="card-inner">
                 <img :src="post.image" alt="">
 
                 <div class="card-inner__div">
+               <nuxt-link :to="'/posts/'+post.name_slug">
                    <p class="fs-18 mb15 color-dark text-bold" >{{post.name}}</p>
-
+                </nuxt-link>
                   <p class="fs-14 mb25">{{post.short_description}}</p>
                   <div class="b-flex">
                     <p class="fs-12 color-dark">{{new Date(post.created_at).toLocaleDateString()}}</p>
@@ -136,7 +138,7 @@
                   </div>
                 </div>
               </div>
-              </nuxt-link>
+
 
             </el-card>
 
@@ -158,17 +160,6 @@
 
     </section>
 
-     <section>
-      <div class="container">
-
-        <div class="grid gridx2">
-          <div style="padding: 80px 50px" :style="{'background':item.bg }" v-for="item in top2_row" :key="item.title" class="grid-item">
-            <p class="text-bold color-dark fs-24 mb15">{{item.title}}</p>
-            <p class="fs-14 color-dark">{{item.text}}</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
   </div>
 
@@ -208,17 +199,17 @@
           {
             image:'/t1.png',
             title:'Кто мы?',
-            text:'Мы - команда Андрея Ковалева'
+            text:'команда Андрея Аркадьевича Ковалева, работаем по данной теме уже несколько лет'
           },
           {
             image:'/t2.png',
             title:'Что делаем?',
-            text:'Разоблачаем инфоцыган и формируем специальный черный список'
+            text:'Формируем  черный список недобросовестных людей: инфоцыган, мошенников, кардеров, аферистов и IT-самозванцев'
           },
           {
             image:'/t3.png',
             title:'Зачем и почему?',
-            text:'Потому что хочется так'
+            text:'Давно пора очистить просторы нашей великой страны от бесконечных прохиндеев и мошенников'
           },
 
 
@@ -238,21 +229,7 @@
 
 
         ],
-        top2_row:[
-          {
-            bg:'#ffffff',
-            title:'Оказались в списке случайно?',
-            text:'Добро пожаловать в арбитраж'
-          },
-          {
-            bg:'#ffffff',
-            title:'Вопросы по работе сайта?',
-            text:'Мы - команда энтузиастов, осуществляем и реализовываем проект известного многим людям бизнесмена и разоблачителя Андрея Ковалева'
-          }
 
-
-
-        ],
 
 
       }

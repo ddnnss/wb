@@ -7,12 +7,18 @@
           <div class=" b-flex a-bt">
             <div class="">
               <p class="fs-14 color-grey-card mb10">Фильтрация по типу</p>
-              <el-select v-model="value" placeholder="Выберите">
+              <el-select v-model="black_list_type" @change="typeChange" placeholder="Выберите">
                 <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
+
+                  :key="0"
+                  :label="'ВСЕ'"
+                  :value="'all'">
+                </el-option>
+                <el-option
+                  v-for="item in black_list_types"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id">
                 </el-option>
               </el-select>
             </div>
@@ -32,8 +38,10 @@
 
 
        <el-table
+         ref="bl"
           :data="black_list"
-          style="width: 100%" class="mobile-hide">
+          @current-change="handleCurrentChange"
+          style="width: 100%" >
           <el-table-column
             prop="id"
             label="ID"
@@ -49,7 +57,7 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="type"
+            prop="type.name"
             label="Тип"
             width="150"
           >
@@ -74,17 +82,17 @@
 
       </div>
     </section>
-     <section>
-      <div class="container">
+<!--     <section>-->
+<!--      <div class="container">-->
 
-        <div class="grid gridx2">
-          <div style="padding: 80px 50px" :style="{'background':item.bg }" v-for="item in top2_row" :key="item.title" class="grid-item">
-            <p class="text-bold color-dark fs-24 mb15">{{item.title}}</p>
-            <p class="fs-14 color-dark">{{item.text}}</p>
-          </div>
-        </div>
-      </div>
-    </section>
+<!--        <div class="grid gridx2">-->
+<!--          <div style="padding: 80px 50px" :style="{'background':item.bg }" v-for="item in top2_row" :key="item.title" class="grid-item">-->
+<!--            <p class="text-bold color-dark fs-24 mb15">{{item.title}}</p>-->
+<!--            <p class="fs-14 color-dark">{{item.text}}</p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </section>-->
 
 
 
@@ -99,9 +107,11 @@
         const  response_posts = await $axios.get(`/api/v1/posts_t/?tag=0`)
         const  response_tags = await $axios.get(`/api/v1/tags/`)
         const  response_bl = await $axios.get(`/api/v1/bl/`)
+        const  response_bl_types = await $axios.get(`/api/v1/bl/types/`)
 
         const posts = response_posts.data.results
         const black_list = response_bl.data.results
+        const black_list_types = response_bl_types.data.results
         const total_pages = response_posts.data.page_count - 1
         const tags = response_tags.data.results
         const url = response_posts.data.links.next
@@ -110,6 +120,7 @@
           posts,
           tags,
           black_list,
+          black_list_types,
           total_pages,
           url
         }
@@ -120,26 +131,11 @@
     },
     data() {
       return {
-        options: [{
-          value: 'Option1',
-          label: 'Все типы'
-        }, {
-          value: 'Option2',
-          label: 'Тип1'
-        }, {
-          value: 'Option3',
-          label: 'Тип2'
-        }, {
-          value: 'Option4',
-          label: 'Тип3'
-        }, {
-          value: 'Option5',
-          label: 'Тип4'
-        }],
-        value: '',
+
+        black_list_type: '',
         value1: '',
         input: '',
-
+        currentRow: null,
         cur_tag:0,
         top_row:[
           {
@@ -198,14 +194,12 @@
       pageChange(val){
         this.getPosts(this.cur_tag,val)
       },
-      async getPosts(tag_id,page){
-          await this.$axios.get(`/api/v1/posts_t/?tag=${tag_id}&page=${page}`)
+      async typeChange(){
+        console.log(this.black_list_type)
+        await this.$axios.get(`/api/v1/bl/filter?type=${this.black_list_type}`)
           .then((response) => {
             console.log(response.data);
-            this.url = response.data.links.next
-            this.total_pages = response.data.page_count -1
-            this.posts = response.data.results
-            this.cur_tag = tag_id
+            this.black_list = response.data.results
           })
           .then(response => {
             console.log('response1')
@@ -218,8 +212,12 @@
             this.login_error = true
 
           });
-
+      },
+      handleCurrentChange(val) {
+        console.log(val)
+        this.currentRow = val;
       }
+
     }
   }
 </script>

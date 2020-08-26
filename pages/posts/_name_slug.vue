@@ -50,17 +50,6 @@
         </el-card>
       </div>
     </section>
-    <section>
-      <div class="container">
-
-        <div class="grid gridx2">
-          <div style="padding: 80px 50px" :style="{'background':item.bg }" v-for="item in top2_row" :key="item.title" class="grid-item">
-            <p class="text-bold color-dark fs-24 mb15">{{item.title}}</p>
-            <p class="fs-14 color-dark">{{item.text}}</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
 
 

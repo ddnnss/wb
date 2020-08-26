@@ -5,13 +5,13 @@
 
        <el-row :gutter="15">
           <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6">
-            <el-card style="padding: 50px" class="box-card mb25" shadow="never">
+            <el-card style="padding: 50px 45px" class="box-card mb25 no-border" shadow="never" >
 
               <ul>
-                <li><el-link class="color-dark mb25" @click="getPosts(0,1)" :class="{textBold : cur_tag===0}">ВСЕ ПОДРЯД</el-link></li>
+                <li><el-link class="color-dark mb40" @click="getPosts(0,1)" :class="{textBold : cur_tag===0}">ВСЕ ПОДРЯД</el-link></li>
                 <li v-for="tag in tags" :key="tag.id"><el-link @click="getPosts(tag.id,1)"
                                                                :class="{textBold : cur_tag===tag.id}"
-                                                               class="text-up mb10">#{{tag.name}}</el-link></li>
+                                                               class="text-up  color-l-grey fs-14">#{{tag.name}}</el-link></li>
 
               </ul>
 
@@ -19,14 +19,15 @@
             </el-card>
           </el-col>
           <el-col :xs="24" :sm="12" :md="16" :lg="18" :xl="18">
-            <el-card style="padding: 0" class="mb15 hover-eff" shadow="never" v-for="post in posts" :key="post.id">
-             <nuxt-link :to="'/posts/'+post.name_slug">
+            <el-card style="padding: 0" class="mb15  no-padding" shadow="hover" v-for="post in posts" :key="post.id">
+
                  <div class="card-inner">
                 <img :src="post.image" alt="">
 
                 <div class="card-inner__div">
+               <nuxt-link :to="'/posts/'+post.name_slug">
                    <p class="fs-18 mb15 color-dark text-bold" >{{post.name}}</p>
-
+                </nuxt-link>
                   <p class="fs-14 mb25">{{post.short_description}}</p>
                   <div class="b-flex">
                     <p class="fs-12 color-dark">{{new Date(post.created_at).toLocaleDateString()}}</p>
@@ -38,7 +39,8 @@
                   </div>
                 </div>
               </div>
-              </nuxt-link>
+
+
             </el-card>
 
             <el-pagination
@@ -59,17 +61,7 @@
 
     </section>
 
-   <section>
-      <div class="container">
 
-        <div class="grid gridx2">
-          <div style="padding: 80px 50px" :style="{'background':item.bg }" v-for="item in top2_row" :key="item.title" class="grid-item">
-            <p class="text-bold color-dark fs-24 mb15">{{item.title}}</p>
-            <p class="fs-14 color-dark">{{item.text}}</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
 
 
