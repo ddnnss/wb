@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div style="background: #FFFFFF" class="mb40">
+    <div  class="mb40">
 <!--    <footer style="background: #ffffff; padding: 50px 0; margin-bottom:20px;display: flex;justify-content: center" class="footer">-->
 <!--      <div class="header-top__logo">-->
 <!--        <p class="header-top__logo-p1"><span class="color-dark">LIDER</span>.PRESS</p>-->
@@ -9,9 +9,10 @@
 
 <!--    </footer>-->
      <div style="grid-gap: 3px; background: #F5F5F5; max-width: 1120px; margin: 0 auto;"  class=" grid gridx2 mb20">
-          <div style="padding: 80px 50px" :style="{'background':item.bg }" v-for="item in top2_row" :key="item.title" class="grid-item">
+          <div style="padding: 50px 80px 30px 50px" :style="{'background':item.bg }" v-for="item in top2_row" :key="item.title" class="grid-item">
             <p class="color-dark fs-18 mb15">{{item.title}}</p>
-            <p class="fs-12 color-dark">{{item.text}}</p>
+            <p class="fs-12 color-dark mb25">{{item.text}}</p>
+            <p class="fs-12 color-grey text-up">info@lider.press</p>
           </div>
         </div>
 

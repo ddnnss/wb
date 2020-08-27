@@ -234,7 +234,7 @@
       handleCurrentChange(val) {
         console.log(val)
         this.currentRow = val;
-        this.$router.push(`/list/${val.name_slug}`)
+        this.$router.push(`/list/${val.name_slug}`).catch(()=>{})
       }
 
     }

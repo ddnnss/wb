@@ -8,8 +8,8 @@
         <div class="grid gridx3">
           <div v-for="item in top_row" :key="item.title" class="grid-item bg-w">
             <img class="mb25" :src="item.image" alt="">
-            <p class="text-bold color-grey fs-18 mb15">{{item.title}}</p>
-            <p>{{item.text}}</p>
+            <p class="text-bold color-dark fs-18 mb15">{{item.title}}</p>
+            <p class="color-l-dark">{{item.text}}</p>
           </div>
         </div>
 
@@ -199,7 +199,7 @@
           {
             image:'/t1.png',
             title:'Кто мы?',
-            text:'команда Андрея Аркадьевича Ковалева, работаем по данной теме уже несколько лет'
+            text:'Мы - команда энтузиастов и разработчиков, работаем при поддержке Андрея Аркадьевича Ковалева'
           },
           {
             image:'/t2.png',

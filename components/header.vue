@@ -4,7 +4,7 @@
       <div class="header-top">
         <div class="header-top__logo">
           <p class="header-top__logo-p1"> <nuxt-link to="/"><span class="color-dark">LIDER</span>.PRESS</nuxt-link>  </p>
-          <p class="header-top__logo-p2 color-dark mobile-hide"> Портал по борьбе с инфоцыганством</p>
+<!--          <p class="header-top__logo-p2 color-dark mobile-hide"> Портал по борьбе с инфоцыганством</p>-->
         </div>
         <div class="header-top__links mobile-hide">
           <el-link :underline="false" href="https://element.eleme.io" class="text-bold color-dark" target="_blank">VK</el-link>
@@ -14,7 +14,7 @@
         <el-button @click="drawer=true" class="mobile-show" type="info" icon="el-icon-menu" plain></el-button>
       </div>
 </div>
-    <div style="background: #FFFFFF;border-bottom: solid 1px #e6e6e6;" class="">
+
       <div class="container">
          <el-menu :router="true" :default-active="activeIndex" class="el-menu-demo mobile-hide" mode="horizontal">
         <el-menu-item class="menu-item" :route="{path:'/'}" index="1">Главная</el-menu-item>
@@ -25,7 +25,7 @@
       </el-menu>
       </div>
 
-    </div>
+
 
 
 
